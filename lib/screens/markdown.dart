@@ -29,7 +29,6 @@ class TextFieldColorizer extends TextEditingController {
   set text(String newText) {
     value = value.copyWith(
       text: newText,
-      selection: TextSelection.collapsed(offset: newText.length),
       composing: TextRange.empty,
     );
   }
@@ -55,7 +54,6 @@ class TextFieldColorizer extends TextEditingController {
                     if (element.group(0) == match[0]) {
                       patternMatched = e;
                       ret = true;
-                      return;
                     }
                   });
                 return ret;
@@ -123,11 +121,6 @@ class _MyWidgetState extends State<MyWidget> {
           TextField(
             keyboardType: TextInputType.multiline,
             maxLines: null,
-            onChanged: (text) {
-              final val =
-                  TextSelection.collapsed(offset: _controller.text.length);
-              _controller.selection = val;
-            },
             style: const TextStyle(fontSize: 20),
             controller: _controller,
           ),
@@ -168,5 +161,7 @@ void formatText(_controller, pola) {
     akhir = pola + akhir;
   }
   var tengah = '${_controller.selection.textInside(_controller.text)}';
+  _controller.selection = TextSelection.fromPosition(
+      TextPosition(offset: _controller.selection.extentOffset));
   _controller.text = awal + tengah + akhir;
 }
