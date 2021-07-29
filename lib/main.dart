@@ -23,14 +23,23 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Delicious Ghanaian Meals"),
-      ),
-      body: Container(
-        margin: EdgeInsets.all(
-          8,
+      body: SafeArea(
+        child: Center(
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Stories()));
+            },
+            child: Container(
+              child: Text(
+                "Show Stories",
+                style: TextStyle(color: Colors.black, fontSize: 16),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              color: Colors.green,
+            ),
+          ),
         ),
-        child: Stories(),
       ),
     );
   }
@@ -53,22 +62,13 @@ class _StoriesState extends State<Stories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("More"),
-      ),
       body: StoryView(
         storyItems: [
           StoryItem.text(
-            title: "I guess you'd love to see more of our food. That's great.",
-            backgroundColor: Colors.blue,
-          ),
+              title:
+                  "I guess you'd love to see more of our food. That's great."),
           StoryItem.text(
             title: "Nice!\n\nTap to continue.",
-            backgroundColor: Colors.red,
-            textStyle: TextStyle(
-              fontFamily: 'Dancing',
-              fontSize: 40,
-            ),
           ),
           StoryItem.pageImage(
             url:
@@ -77,23 +77,15 @@ class _StoriesState extends State<Stories> {
             controller: storyController,
           ),
           StoryItem.text(
-            title: "I guess you'd love to see more of our food. That's great.",
-            backgroundColor: Colors.green,
-          ),
-          StoryItem.text(
-            title: "Nice!\n\nTap to continue.",
-            backgroundColor: Colors.red,
-            textStyle: TextStyle(
-              fontFamily: 'Dancing',
-              fontSize: 40,
-            ),
-          ),
+              title:
+                  "I guess you'd love to see more of our food. That's great."),
+          StoryItem.text(title: "End"),
         ],
         onStoryShow: (s) {
           print("Showing a story");
         },
         onComplete: () {
-          print("Completed a cycle");
+          Navigator.pop(context);
         },
         progressPosition: ProgressPosition.top,
         repeat: false,
