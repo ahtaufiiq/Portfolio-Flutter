@@ -1,3 +1,4 @@
+import 'package:coba/text_controller.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,14 +17,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final controller = TextFieldColorizer();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          child: Center(child: Text("Home")),
+          child: Center(
+              child: TextField(
+            controller: controller,
+          )),
         ),
       ),
     );
